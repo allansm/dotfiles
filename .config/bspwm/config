@@ -1,0 +1,12 @@
+padding(){
+	bspc config window_gap $@
+}
+
+border(){
+	bspc config border_width $@
+}
+
+bg(){
+	cp $@ ~/.wallpaper
+	feh --bg-fill ~/.wallpaper
+}

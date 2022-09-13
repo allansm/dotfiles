@@ -1,0 +1,96 @@
+#!/bin/sh
+#volume down
+XF86AudioLowerVolume
+	amixer -q sset Master 3- && notify-send Volume "$(amixer sget Master | grep %)"
+
+#volume up
+XF86AudioRaiseVolume
+	amixer -q sset Master 3+ && notify-send Volume "$(amixer sget Master | grep %)"
+
+#mute
+XF86AudioMute
+	amixer -q -D pulse set Master 1+ toggle && notify-send Volume muted/unmuted
+
+#terminal
+ctrl + alt + t
+	lxterminal
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd && notify-send "sxhkd" "sxhkd updated"
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+# close
+alt + F4
+	bspc node -c
+
+# close receptacle
+super + shift + F4
+	bspc node 'any.leaf.!window' -k
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest current node to the any preselected node
+super + Return
+	bspc node -n 'any.!automatic.local'
+
+# send any receptacle to preselected node
+super + ctrl + Return
+	bspc node 'any.leaf.!window' -n 'any.!automatic.local'
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+# swap the current node and any receptacle
+super + r
+	bspc node -s any.leaf.!window
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# focus the next/previous window in the current desktop
+alt + {_,shift + }Tab
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# preselect direction
+super + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# preselect and open receptacle
+super + shift + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east} && bspc node -i
+
+# preselect direction on receptacle
+super + ctrl + {Left,Down,Up,Right}
+	bspc node 'any.leaf.!window' -p {west,south,north,east} && bspc node -t pseudo_tiled && bspc node -t tiled
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + space
+	bspc node -p cancel
+
+# cancel preselection on receptacle
+super + ctrl + space
+	bspc node 'any.leaf.!window' -p cancel
+
+# send last desktop node to preselected
+super + z
+	bspc node last.!local -n 'any.!automatic.local'
+
+# send node to last desktop
+super + x
+	bspc node -d last
