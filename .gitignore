@@ -5,3 +5,6 @@ lxterminal
 neofetch
 nvim
 pcmanfm
+.config/gtk-3.0/
+.config/pulse/*-*
+.config/pulse/cookie
