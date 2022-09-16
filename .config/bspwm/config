@@ -6,7 +6,25 @@ border(){
 	bspc config border_width $@
 }
 
+bstop(){
+	bspc config top_padding $@
+}
+
+bsbottom(){
+	bspc config bottom_padding $@
+}
+
 bg(){
 	cp $@ ~/.wallpaper
 	feh --bg-fill ~/.wallpaper
+}
+
+bsfill(){
+	bspc config window_gap 0
+	killall picom
+}
+
+bsrestore(){
+	bspc config window_gap 7
+	picom 1>/dev/null 2>&1 &
 }

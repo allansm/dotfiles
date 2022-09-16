@@ -15,9 +15,10 @@ bspc rule -a "*" state=floating sticky
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 
-bspc rule -a Google-chrome desktop='^3' state=tiled follow=on
-bspc rule -a Chromium desktop='^3' state=tiled follow=on
-bspc rule -a firefox desktop='^3' state=tiled follow=on
+bspc rule -a Google-chrome desktop='^2' state=tiled follow=on
+bspc rule -a Chromium desktop='^2' state=tiled follow=on
+bspc rule -a firefox desktop='^2' state=tiled follow=on
+bspc rule -a chrome desktop='^2' state=tiled follow=on
 bspc rule -a Lxterminal state=tiled 
 bspc rule -a Plank layer=normal manage=on border=off
 bspc rule -a mpv layer=below manage=on border=on
