@@ -32,4 +32,5 @@ bspc config bottom_padding 		0
 
 xset s off -dpms
 feh --bg-fill ~/.wallpaper
-picom &
+polybar &
+picom --experimental-backends &
