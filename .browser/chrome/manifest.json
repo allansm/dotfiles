@@ -1,0 +1,31 @@
+{
+	"name":"sometheme",
+	"version":"1.0",
+	"description":"",
+	"manifest_version":2,
+	"theme":{
+		"images":{
+			"theme_frame":"images\/theme_frame.png",
+			"theme_toolbar":"images\/theme_toolbar.png",
+			"theme_tab_background":"images\/theme_tab_background.png"
+		},
+
+		"colors":{
+			"frame":[26,32,38],
+			"toolbar":[26,32,38],
+			"tab_text":[148,207,149],
+			"tab_background_text":[148,207,149],
+			"bookmark_text":[148,207,149],
+			"ntp_background":[26,32,38],
+			"ntp_text":[148,207,149],
+			"ntp_link":[148,207,149],
+			"button_background":[26,32,38,1]
+		},
+
+		"tints":{"buttons":[0.34,0.38,0.7]},
+		"properties":{
+			"ntp_background_alignment":"bottom",
+			"ntp_background_repeat":"no-repeat"
+		}
+	}
+}
