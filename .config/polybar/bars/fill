@@ -1,0 +1,9 @@
+[bar/fill]
+inherit = bar/root
+
+width = 100%
+height = 24pt
+
+include-file = ../common/modules
+
+fixed-center = true

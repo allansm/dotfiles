@@ -1,0 +1,3 @@
+modules-left = xworkspaces filesystem
+modules-center = chrome firefox steam terminal fm settings trash
+modules-right = cpu memory pulseaudio xkeyboard user

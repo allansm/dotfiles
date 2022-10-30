@@ -1,0 +1,35 @@
+[module/chrome]
+type = custom/text
+content = 
+click-left = flatpak run org.chromium.Chromium
+
+[module/firefox]
+type = custom/text
+content = 
+click-left = flatpak run org.mozilla.firefox
+
+[module/steam]
+type = custom/text
+content = 
+click-left = flatpak run com.valvesoftware.Steam
+
+[module/terminal]
+type = custom/text
+content = 
+click-left = lxterminal
+
+[module/fm]
+type = custom/text
+content = 📁
+click-left = pcmanfm
+
+[module/settings]
+type = custom/text
+content = 
+click-left = 
+
+[module/trash]
+type = custom/text
+content = 
+click-left = pcmanfm trash://
+

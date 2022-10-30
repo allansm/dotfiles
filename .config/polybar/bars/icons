@@ -1,0 +1,12 @@
+[bar/icons]
+inherit = bar/root
+
+width = 20%
+height = 24pt
+
+offset-y = 95%
+offset-x = 40%
+
+modules-center = chrome firefox steam terminal fm settings trash
+
+fixed-center = true

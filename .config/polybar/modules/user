@@ -1,0 +1,3 @@
+[module/user]
+type = custom/text
+content = ${env:USER}

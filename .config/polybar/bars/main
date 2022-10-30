@@ -1,0 +1,12 @@
+[bar/main]
+inherit = bar/root
+
+width = 97.85%
+height = 24pt
+
+offset-y = 5
+offset-x = 1.15%
+
+include-file = ../common/modules
+
+fixed-center = true
