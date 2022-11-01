@@ -1,10 +1,23 @@
 [colors]
-background = #0a0c10
+foreground = ${xrdb:foreground:#000000}
+background = ${xrdb:background:#000000}
 background-alt = #00000000
-foreground = #94cf95
-primary = #94cf95
-secondary = #819d78
-alert = #fb6396
-disabled = #b2b5b6
+primary = ${xrdb:foreground:#000000}
 
+black       = ${xrdb:color0:#000000}
+darkred     = ${xrdb:color1:#000000}
+darkgreen   = ${xrdb:color2:#000000}
+darkyellow  = ${xrdb:color3:#000000}
+darkblue    = ${xrdb:color4:#000000}
+darkmagenta = ${xrdb:color5:#000000}
+darkcyan    = ${xrdb:color6:#000000}
+grey        = ${xrdb:color7:#000000}
 
+lightgray   = ${xrdb:color8:#000000}
+red         = ${xrdb:color9:#000000}
+green       = ${xrdb:color10:#000000}
+yellow      = ${xrdb:color11:#000000}
+blue        = ${xrdb:color12:#000000}
+darkpurple  = ${xrdb:color13:#000000}
+cyan        = ${xrdb:color14:#000000}
+white       = ${xrdb:color15:#000000}
