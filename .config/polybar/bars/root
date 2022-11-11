@@ -7,8 +7,8 @@ foreground = ${colors.foreground}
 
 line-size = 3pt
 
-#border-size = 1pt
-border-color = ${colors.foreground}
+border-size = 1pt
+border-color = ${colors.green}
 
 padding-left = 0
 padding-right = 2

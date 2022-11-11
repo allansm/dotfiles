@@ -1,11 +1,12 @@
 [bar/main]
 inherit = bar/root
 
-width = 97.85%
+width = 99.26793557833089%
 height = 24pt
 
 offset-y = 5
-offset-x = 1.15%
+offset-x = 5
+#1.15%
 
 include-file = ../common/modules
 
