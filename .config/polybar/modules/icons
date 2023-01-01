@@ -6,7 +6,7 @@ click-left = flatpak run org.chromium.Chromium
 [module/firefox]
 type = custom/text
 content = 
-click-left = flatpak run org.mozilla.firefox
+click-left = flatpak run io.gitlab.librewolf-community
 
 [module/steam]
 type = custom/text
@@ -16,12 +16,12 @@ click-left = flatpak run com.valvesoftware.Steam
 [module/terminal]
 type = custom/text
 content = 
-click-left = lxterminal
+click-left = urxvt
 
 [module/fm]
 type = custom/text
 content = 📁
-click-left = pcmanfm
+click-left = thunar
 
 [module/settings]
 type = custom/text

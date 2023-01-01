@@ -8,6 +8,9 @@ offset-y = 5
 offset-x = 5
 #1.15%
 
+#border-size = 2pt
+#radius = 16.0
+
 include-file = ../common/modules
 
 fixed-center = true

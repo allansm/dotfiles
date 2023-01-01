@@ -28,7 +28,7 @@ content = DISKS
 
 [module/filesystem]
 type = internal/fs
-interval = 60
+interval = 5
 
 mount-0 = /
 mount-1 = /run/media/allansm/games
@@ -60,7 +60,7 @@ label-indicator-background = ${colors.primary}
 [module/memory]
 type = internal/memory
 
-interval = 1
+interval = 5
 
 warn-percentage = 95
 format = <label> <bar-used>
@@ -76,7 +76,7 @@ bar-used-empty-foreground = ${colors.green}
 [module/cpu]
 type = internal/cpu
 
-interval = 1
+interval = 5
 format = <label> <bar-load>
 
 bar-load-indicator =
@@ -93,7 +93,7 @@ type = internal/pulseaudio
 
 label-volume = VOL
 
-interval = 3
+interval = 5
 format-volume = <label-volume> <bar-volume>
 
 bar-volume-indicator =
@@ -127,7 +127,7 @@ label-connected = %{F#F0C674}%ifname%%{F-} %local_ip%
 
 [module/date]
 type = internal/date
-interval = 60
+interval = 5
 
 date = %H:%M
 

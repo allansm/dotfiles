@@ -4,30 +4,26 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
-bspc config window_gap          5
-
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a "*" state=floating sticky
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
+#bspc rule -a Gimp desktop='^8' state=floating follow=on
 
 bspc rule -a Google-chrome desktop='^2' state=tiled follow=on
 bspc rule -a Chromium desktop='^2' state=tiled follow=on
 bspc rule -a firefox desktop='^2' state=tiled follow=on
 bspc rule -a Chromium-browser desktop='^2' state=tiled follow=on
+bspc rule -a librewolf desktop='^2' state=tiled follow=on
+
 bspc rule -a Lxterminal desktop='^' state=tiled 
 bspc rule -a Plank  desktop='' layer=normal manage=on border=off
 bspc rule -a qterminal desktop='' state=tiled
 bspc rule -a mpv desktop='' border=off
-bspc rule -a polybar layer=below border=on
-
-bspc config top_padding 39
-bspc config right_padding 0
-bspc config left_padding 0
-bspc config bottom_padding 0
+bspc rule -a Polybar layer=below border=on
+bspc rule -a URxvt state=tiled
 
 source ~/.cache/wal/colors.sh
 
@@ -36,17 +32,17 @@ export color10=$color10
 export foreground=$foreground
 export background=$background
 
-bspc config normal_border_color $color10
-bspc config focused_border_color $color10
+bspc config normal_border_color $background
+bspc config focused_border_color $foreground
 bspc config presel_feedback_color $color10
 
-bspc config border_width         1
+source ~/.config/bspwm/appearance
 
 xset s off -dpms &
 feh --bg-fill ~/.wallpaper &
-polybar main &
-picom &
+
 wal -Rn &
 dunst -config <(envsubst < ~/.config/dunst/dunstrc) &
 redshift -l -14.23:-51.92 -b 0.8:0.7 &
-xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr &
+#xborders --border-radius 16 --border-rgba "$foreground"ff --border-width 2 1>/dev/null 2>&1 &

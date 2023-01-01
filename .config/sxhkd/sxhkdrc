@@ -13,7 +13,7 @@ XF86AudioMute
 
 #terminal
 ctrl + alt + t
-	lxterminal
+	urxvt
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -37,7 +37,7 @@ super + m
 
 # send the newest current node to the any preselected node
 super + Return
-	bspc node -n 'any.!automatic.local'
+	bspc node -n 'any.!automatic.local' && bspc node -t tiled
 
 # send any receptacle to preselected node
 super + ctrl + Return
