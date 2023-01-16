@@ -6,10 +6,10 @@ label-active-background = ${colors.background}
 label-active-underline= ${colors.green}
 label-active-padding = 1
 
-label-occupied = 
+label-occupied = %name%
 label-occupied-padding = 1
 
-label-urgent =
+label-urgent = %name%
 label-urgent-background = ${colors.background}
 label-urgent-foreground = ${colors.foreground}
 label-urgent-padding = 1

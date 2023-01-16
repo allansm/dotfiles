@@ -1,0 +1,43 @@
+[global]
+	width = (0, 300)
+	height = (0, 300)
+
+	origin = bottom-right
+	
+	offset = 12x12
+	
+	transparency = 10
+	#corner_radius = 16
+	
+	padding = 20
+	horizontal_padding = 20
+	
+	separator_height = 0
+	
+	frame_width = 2
+	frame_color = "${color10}"
+	
+	gap_size = 5
+	line_height = 0
+
+	icon_position = off
+	font = Monospace 8
+
+	format = "<b>%s</b>\n\n  %b"
+
+[urgency_low]
+	background = "${background}"
+	foreground = "${foreground}"
+	timeout = 15
+
+[urgency_normal]	
+	background = "${background}"
+	foreground = "${foreground}"
+	timeout = 15
+	default_icon = ""
+
+[urgency_critical]
+	background = "#900000"
+	foreground = "#ffffff"
+	timeout = 15
+
