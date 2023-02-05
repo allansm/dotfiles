@@ -24,6 +24,7 @@ bspc rule -a qterminal desktop='' state=tiled
 bspc rule -a mpv desktop='' border=off
 bspc rule -a Polybar layer=below border=on
 bspc rule -a URxvt state=tiled
+bspc rule -a URxvt:float state=floating
 bspc rule -a Thunar center=true rectangle=450x490+0+0
 
 source ~/.cache/wal/colors.sh

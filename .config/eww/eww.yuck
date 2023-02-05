@@ -15,11 +15,11 @@
 
 (defwidget middle []
 	(box :class "middle" :orientation "h" :space-evenly true :halign "start" :spacing 0
-		(button :class "icon" :onclick "flatpak run org.chromium.Chromium &" "")
-		(button :class "icon" :onclick "flatpak run io.gitlab.librewolf-community &" "")
-		(button :class "icon" :onclick "urxvt &" "")
-		(button :class "icon" :onclick "thunar &" "📁")
-		(button :class "icon" :onclick "thunar trash:// &" "")
+		(icon :name "google-chrome" :onclick "flatpak run org.chromium.Chromium &")
+		(icon :name "firefox" "flatpak :onclick run io.gitlab.librewolf-community &")
+		(icon :name "org.xfce.terminalemulator" :onclick "urxvt -name float &")
+		(icon :name "org.xfce.panel.directorymenu" :onclick "thunar &")
+		(icon :name "trashindicator" :onclick "thunar trash:// &")
 	)
 )
 
@@ -68,6 +68,16 @@
 		(metric :class "unset" :label "" :value {round((1 - (EWW_DISK["${name}"].free / EWW_DISK["${name}"].total)) * 100, 0)} :onchange "")
 	)
 )
+
+(defwidget icon [name ?onclick]
+	(box :space-evenly false
+		(button :class "icon" :onclick onclick
+			(image :path "${papirus}/${name}.svg" :image-width 23 :image-height 23)
+		)
+	)
+)
+
+(defvar papirus "/usr/share/icons/Papirus/32x32/apps")
 
 (defpoll disks :interval "1s" "scripts/disks")
 (defpoll volume :interval "1s" "scripts/volume")
