@@ -1,0 +1,83 @@
+/*.background {
+	all: unset;
+	background: ${background};
+	color: ${foreground};
+	border-radius: 16px;
+}*/
+
+.padl{
+	padding-left: 15px;
+}
+
+.unset slider{
+	all: unset;
+}
+
+.drag slider{
+	background: ${foreground};
+	min-height:1px;
+	min-width:1px;
+}
+
+
+
+.metric scale trough {
+	//all: unset;
+	background-color: darker(${color10});
+	border-radius: 50px;
+	min-height: 12px;
+	min-width: 80px;
+	margin-left: 5px;
+	margin-right: 10px;
+	//border: 1px solid ${foreground};
+}
+
+.metric scale trough highlight {
+	//all: unset;
+	background-color: ${color10};
+	//color: #000000;
+	border-radius: 10px;
+}
+
+.muted slider{
+	all: unset;
+}
+
+.metric .muted trough{
+	background-color: gray;
+}
+
+.metric .muted trough highlight{
+	background-color: gray;
+}
+
+.workspaces button{
+	all: unset;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 22px;
+}
+
+.workspaces button:hover{
+	color: ${color10};
+}
+
+.icon{
+	all: unset;
+	font-size: 18px;
+}
+
+.middle button{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.middle button:hover{
+	background: ${color10};
+}
+
+.user{
+	//background: ${color10};
+	padding-left:15px;
+	padding-right:15px;
+}

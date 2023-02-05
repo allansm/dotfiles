@@ -41,7 +41,7 @@ theme(){
 	export color10=$color10
 	export foreground=$foreground
 	export background=$background
-	#bspc config normal_border_color $foreground
+	#bspc config normal_border_color $background
 	bspc config focused_border_color $color10
 	bspc config presel_feedback_color $color10
 	#killall dunst 
@@ -63,9 +63,10 @@ bs(){
 	bspc config border_radius $6
 	bspc config border_width $7
 	
-	killall polybar
-	polybar $8 1>/dev/null 2>&1 &
-	
+	killall eww
+	eww daemon
+	eww open $8
+
 	killall picom
 	picom --corner-radius $6 1>/dev/null 2>&1 &
 	
@@ -80,7 +81,7 @@ bs(){
 	echo "bspc config border_radius $6" >> ~/.config/bspwm/appearance
 	echo "bspc config border_width $7" >>  ~/.config/bspwm/appearance
 	
-	echo "polybar $8 1>/dev/null 2>&1 &" >> ~/.config/bspwm/appearance
+	echo "eww open $8" >> ~/.config/bspwm/appearance
 	echo "picom --corner-radius $6 1>/dev/null 2>&1 &" >> ~/.config/bspwm/appearance
 	echo "source ~/.cache/wal/colors.sh" >> ~/.config/bspwm/appearance
 	echo "dunst -config <(envsubst < ~/.config/dunst/$9) &" >> ~/.config/bspwm/appearance

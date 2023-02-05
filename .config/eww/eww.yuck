@@ -1,0 +1,88 @@
+(defwidget bar []
+	(centerbox :orientation "h"
+		(left)
+		(middle)
+    		(right)
+	)
+)
+
+(defwidget left []
+	(box :class "left" :orientation "h" :space-evenly false :halign "start"
+		(workspaces)
+		(disks)
+	)
+)
+
+(defwidget middle []
+	(box :class "middle" :orientation "h" :space-evenly true :halign "start" :spacing 0
+		(button :class "icon" :onclick "flatpak run org.chromium.Chromium &" "")
+		(button :class "icon" :onclick "flatpak run io.gitlab.librewolf-community &" "")
+		(button :class "icon" :onclick "urxvt &" "")
+		(button :class "icon" :onclick "thunar &" "📁")
+		(button :class "icon" :onclick "thunar trash:// &" "")
+	)
+)
+
+(defwidget right []
+ 	(box :class "right" :orientation "h" :space-evenly false :halign "end"
+		(metric :class "unset" :label "CPU" :value {EWW_CPU.avg} :onchange "")
+		(metric :class "unset" :label "RAM" :value {EWW_RAM.used_mem_perc} :onchange "")
+		(metric :class {muted == 0 ? "muted" : "unset"} :label "VOL" :value volume :onchange "amixer -D pulse sset Master {}%")
+		(box :class "user" user)
+	)
+)
+
+(defwidget workspaces []
+	(box :class "workspaces padl" :orientation "h" :space-evenly false :halign "start" :spacing 0	
+		(button :onclick "bspc desktop -f ^1" {workspace == "I" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^2" {workspace == "II" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^3" {workspace == "III" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^4" {workspace == "IV" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^5" {workspace == "V" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^6" {workspace == "VI" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^7" {workspace == "VII" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^8" {workspace == "VIII" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^9" {workspace == "IX" ? "●" : "○"})
+		(button :onclick "bspc desktop -f ^10" {workspace == "X" ? "●" : "○"})
+	)
+)
+
+(defwidget disks []
+	(box :class "disks" :orientation "h" :space-evenly false :halign "start" :spacing 0
+		(box :class "padl" "DISKS")
+		(for n in '${disks}'
+			(disk :name '${n}')
+		)
+	)
+)
+
+(defwidget metric [label value onchange ?class]
+	(box :class "metric" :space-evenly false
+		(box :class "label" label)
+		(scale :class "${class}" :min 0 :max 101 :active {onchange != ""} :value value :onchange onchange)
+	)
+)
+
+(defwidget disk [name]
+	(box :class "disk" :space-evenly false
+		(metric :class "unset" :label "" :value {round((1 - (EWW_DISK["${name}"].free / EWW_DISK["${name}"].total)) * 100, 0)} :onchange "")
+	)
+)
+
+(defpoll disks :interval "1s" "scripts/disks")
+(defpoll volume :interval "1s" "scripts/volume")
+(defpoll workspace :interval "100ms" "scripts/workspaces")
+(defpoll user :interval "1200s" "echo $USER")
+(defpoll muted :interval "1s" "scripts/muted")
+
+(defwindow main :monitor 0 :windowtype "dock" :geometry 
+	(geometry :x "0%" :y "5px" :width "99.26793557833089%" :height "33px" :anchor "top center") :reserve
+	(struts :side "top" :distance "4%")
+  	(bar)
+)
+
+(defwindow fill :monitor 0 :windowtype "dock" :geometry
+	(geometry :x "0%" :y "0%" :width "100%" :height "33px" :anchor "top center") :reserve
+	(struts :side "top" :distance "4%")
+	(bar)
+)

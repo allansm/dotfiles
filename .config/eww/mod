@@ -1,0 +1,3 @@
+for n in scripts/*; do
+	chmod +x $n
+done
