@@ -9,25 +9,27 @@
 (defwidget left []
 	(box :class "left" :orientation "h" :space-evenly false :halign "start"
 		(workspaces)
-		(disks)
+		(revealer :reveal {EWW_NET["wlp2s0"]["NET_UP"] == 0 && EWW_NET["wlp2s0"]["NET_DOWN"] == 0} :transition "slideright" :duration "1s"
+			(disks)
+		)
+		(revealer :reveal {EWW_NET["wlp2s0"]["NET_UP"] > 0 || EWW_NET["wlp2s0"]["NET_DOWN"] > 0} :transition "slideright" :duration "1s"
+			(network)
+		)
 	)
 )
 
 (defwidget middle []
 	(box :class "middle" :orientation "h" :space-evenly true :halign "start" :spacing 0
-		(icon :name "google-chrome" :onclick "flatpak run org.chromium.Chromium &")
-		(icon :name "firefox" "flatpak :onclick run io.gitlab.librewolf-community &")
-		(icon :name "org.xfce.terminalemulator" :onclick "urxvt -name float &")
-		(icon :name "org.xfce.panel.directorymenu" :onclick "thunar &")
-		(icon :name "trashindicator" :onclick "thunar trash:// &")
+		(icons)
 	)
 )
 
 (defwidget right []
  	(box :class "right" :orientation "h" :space-evenly false :halign "end"
-		(metric :class "unset" :label "CPU" :value {EWW_CPU.avg} :onchange "")
-		(metric :class "unset" :label "RAM" :value {EWW_RAM.used_mem_perc} :onchange "")
+		(metric :class "unset" :label "CPU" :value {round(EWW_CPU.avg, 0)} :onchange "")
+		(metric :class "unset" :label "RAM" :value {round(EWW_RAM.used_mem_perc, 0)} :onchange "")
 		(metric :class {muted == 0 ? "muted" : "unset"} :label "VOL" :value volume :onchange "amixer -D pulse sset Master {}%")
+		(temperature)
 		(box :class "user" user)
 	)
 )
@@ -47,6 +49,12 @@
 	)
 )
 
+(defwidget temperature []
+	(box 
+		{EWW_TEMPS["CORETEMP_CORE_0"]} "°C"
+	)
+)
+
 (defwidget disks []
 	(box :class "disks" :orientation "h" :space-evenly false :halign "start" :spacing 0
 		(box :class "padl" "DISKS")
@@ -56,16 +64,36 @@
 	)
 )
 
+(defwidget network []
+	(box :class "net padl" :space-evenly false :spacing 5
+		"UPLOAD"
+		{EWW_NET["wlp2s0"]["NET_UP"]}
+		"DOWNLOAD"
+		{EWW_NET["wlp2s0"]["NET_DOWN"]}
+	)
+)
+
+(defwidget icons[]
+	(box :space-evenly false
+		(icon :name "google-chrome" :onclick "flatpak run org.chromium.Chromium &")
+		(icon :name "firefox" :onclick "flatpak run io.gitlab.librewolf-community &")
+		(icon :name "org.xfce.terminalemulator" :onclick "urxvt -name float &")
+		(icon :name "org.xfce.panel.directorymenu" :onclick "thunar &")
+		(icon :name "trashindicator" :onclick "thunar trash:// &")
+	)
+)
+
 (defwidget metric [label value onchange ?class]
 	(box :class "metric" :space-evenly false
 		(box :class "label" label)
-		(scale :class "${class}" :min 0 :max 101 :active {onchange != ""} :value value :onchange onchange)
+		(scale :class "${class}" :min 0 :max 101 :value value :onchange onchange)
+		(box "${value}%  ")
 	)
 )
 
 (defwidget disk [name]
 	(box :class "disk" :space-evenly false
-		(metric :class "unset" :label "" :value {round((1 - (EWW_DISK["${name}"].free / EWW_DISK["${name}"].total)) * 100, 0)} :onchange "")
+		(scale :class "unset" :min 0 :max 101 :value {round((1 - (EWW_DISK["${name}"].free / EWW_DISK["${name}"].total)) * 100, 0)})
 	)
 )
 

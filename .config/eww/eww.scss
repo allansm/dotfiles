@@ -1,3 +1,8 @@
+.main, .fill{
+	background:${background};
+	color: ${foreground};
+}
+
 .padl{
 	padding-left: 20px;
 }
@@ -16,13 +21,28 @@
 	background-color: darker(${color10});
 	border-radius: 50px;
 	min-height: 12px;
-	min-width: 80px;
+	min-width: 70px;
 	margin-left: 5px;
 	margin-right: 10px;
 	
 }
 
 .metric scale trough highlight{
+	background-color: ${color10};
+	border-radius: 10px;
+}
+
+.disk scale trough {
+	background-color: darker(${color10});
+	border-radius: 50px;
+	min-height: 12px;
+	min-width:70px;
+	margin-left: 6px;
+	margin-right: 0px;
+	
+}
+
+.disk scale trough highlight{
 	background-color: ${color10};
 	border-radius: 10px;
 }
