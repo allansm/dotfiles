@@ -1,99 +1,106 @@
+$background : ${background};
+$foreground : ${foreground};
+$color1 : ${color10};
+$color2 : darker($color1);
+$color3 : gray;
+$left-distance : 20px;
+$right-distance : 5px;
+$font-icon-size : 23px;
+$font-icon-size-small : 19px;
+$label-size : 19px;
+$icons-distance : 5px;
+$radius : 16px;
+
 .main, .fill{
-	background:${background};
-	color: ${foreground};
+	background:$background;
+	color: $foreground;
 }
 
-.padl{
-	padding-left: 20px;
-}
-
-.unset slider{
-	all: unset;
-}
-
-.drag slider{
-	background: ${foreground};
-	min-height:1px;
-	min-width:1px;
-}
-
-.font-icon{
-	font-size:17px;
-}
-
-.metric scale trough {
-	background-color: darker(${color10});
-	border-radius: 16px;
-	min-height: 12px;
-	min-width: 70px;
-	margin-left: 5px;
-	margin-right: 5px;
-	
-}
-
-.metric scale trough highlight{
-	background-color: ${color10};
-	border-radius: 16px;
-}
-
-.disk scale trough {
-	background-color: darker(${color10});
-	border-radius: 16px;
-	min-height: 12px;
-	min-width:70px;
-	margin-left: 6px;
-	margin-right: 0px;
-	
-}
-
-.disk scale trough highlight{
-	background-color: ${color10};
-	border-radius: 16px;
-}
-
-.muted slider{
-	all: unset;
-}
-
-.metric .muted trough{
-	background-color: gray;
-}
-
-.metric .muted trough highlight{
-	background-color: gray;
+.workspaces{
+	padding-left: $left-distance;
 }
 
 .workspaces button{
 	all: unset;
-	padding-left: 1px;
+	background: $background;
+	font-size: 27px;
 	padding-right: 1px;
-	font-size: 23px;
 }
 
 .workspaces button:hover{
-	color: ${color10};
+	color: $color1;
+}
+
+.disks{
+	padding-left: $left-distance;
+}
+
+.network{
+	padding-left: $left-distance;
+}
+
+.icons button{
+	background: $background;
+}
+
+.icons button:hover{
+	border-bottom: 5px solid $color1;	
 }
 
 .icon{
 	all: unset;
-	font-size: 25px;
+	font-size: $font-icon-size;
+	padding-left: $icons-distance;
+	padding-right: $icons-distance;
 }
 
-.small{
-	all: unset;
-	font-size: 21px;
+.icon-small{
+	font-size: $font-icon-size-small; 
 }
 
-.middle button{
-	padding-left: 5px;
-	padding-right: 5px;
-}
-
-.middle button:hover{
-	border-bottom:5px solid ${color10}
+.temperature{
+	padding-left: $left-distance;
 }
 
 .user{
-	padding-left:15px;
-	padding-right:15px;
+	padding-left: 5px;
+	padding-right: 15px;
+}
+
+.metric{
+	padding-right: $right-distance;
+}
+
+.metric scale slider{
+	all: unset;
+}
+
+.metric scale trough{
+	background:$color2;
+	min-width: 70px;
+	min-height: 12px;
+	border-radius: $radius;
+}
+
+.metric scale trough highlight{
+	background:$color1;
+	border-radius: $radius;
+}
+
+.metric .muted trough{
+	background: $color3;
+}
+
+.metric .muted trough highlight{
+	background: $color3;
+}
+
+.label{
+	font-size: $label-size;
+	padding-right: $right-distance;
+	padding-left: $right-distance;
+}
+
+.value{
+	padding-right: $right-distance;
 }

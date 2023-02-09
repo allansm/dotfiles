@@ -26,16 +26,17 @@
 
 (defwidget right []
  	(box :class "right" :orientation "h" :space-evenly false :halign "end"
-		(metric :class "unset" :label "" :value {round(EWW_CPU.avg, 0)} :onchange "")
-		(metric :class "unset" :label "" :value {round(EWW_RAM.used_mem_perc, 0)} :onchange "")
+		(metric :class "" :label "" :value {round(EWW_CPU.avg, 0)} :onchange "")
+		(metric :class "" :label "" :value {round(EWW_RAM.used_mem_perc, 0)} :onchange "")
 		(metric :class {muted == 0 ? "muted" : "unset"} :label "" :value volume :onchange "amixer -D pulse sset Master {}%")
 		(temperature)
+		(connection)
 		(box :class "user" user)
 	)
 )
 
 (defwidget workspaces []
-	(box :class "workspaces padl" :orientation "h" :space-evenly false :halign "start" :spacing 0	
+	(box :class "workspaces" :orientation "h" :space-evenly false :halign "start" :spacing 0	
 		(button :onclick "bspc desktop -f ^1" {workspace == "I" ? "●" : "○"})
 		(button :onclick "bspc desktop -f ^2" {workspace == "II" ? "●" : "○"})
 		(button :onclick "bspc desktop -f ^3" {workspace == "III" ? "●" : "○"})
@@ -51,7 +52,7 @@
 
 (defwidget disks []
 	(box :class "disks" :orientation "h" :space-evenly false :halign "start" :spacing 0
-		(box :class "padl font-icon" "")
+		(box :class "label" "")
 		(for n in '${disks}'
 			(disk :name '${n}')
 		)
@@ -59,25 +60,30 @@
 )
 
 (defwidget network []
-	(box :class "net padl" :space-evenly false :spacing 5
-		(box :class "font-icon" "")
-		{round(EWW_NET["wlp2s0"]["NET_UP"]/1024, 0)} "Kbps"
-		(box :class "font-icon" "")
-		{round(EWW_NET["wlp2s0"]["NET_DOWN"]/1024, 0)} "Kbps"
+	(box :class "network" :space-evenly false
+		(box :class "label" "")
+		(box :class "value" :space-evenly false
+			{round(EWW_NET["wlp2s0"]["NET_UP"]/1024, 0)} "Kbps"
+		)
+
+		(box :class "font-icon label" "")
+		(box :class "value" :space-evenly false
+			{round(EWW_NET["wlp2s0"]["NET_DOWN"]/1024, 0)} "Kbps"
+		)
 	)
 )
 
-(defwidget text-icons[]
-	(box :space-evenly false
-		(button :class "icon small" :onclick "flatpak run org.chromium.Chromium &" "")
-		(button :class "icon small" :onclick "flatpak run io.gitlab.librewolf-community &" "")
+(defwidget text-icons []
+	(box :class "icons" :space-evenly false
+		(button :class "icon icon-small" :onclick "flatpak run org.chromium.Chromium &" "")
+		(button :class "icon icon-small" :onclick "flatpak run io.gitlab.librewolf-community &" "")
 		(button :class "icon" :onclick "urxvt -name float &" "")
 		(button :class "icon" :onclick "thunar ~ &" "")
 		(button :class "icon" :onclick "thunar trash:// &" "")
 	)
 )
 
-(defwidget icons[]
+(defwidget icons []
 	(box :space-evenly false
 		(icon :name "google-chrome" :onclick "flatpak run org.chromium.Chromium &")
 		(icon :name "firefox" :onclick "flatpak run io.gitlab.librewolf-community &")
@@ -88,23 +94,31 @@
 )
 
 (defwidget temperature []
-	(box 
-		(box :class "font-icon" "")
-		{EWW_TEMPS["CORETEMP_CORE_0"]} "°C"
+	(box :space-evenly false
+		(box :class "label" "")
+		(box :class "value"
+			{EWW_TEMPS["CORETEMP_CORE_0"]} "°C"
+		)
+	)
+)
+
+(defwidget connection []
+	(box :class "label"
+		{connected == "connected" ? "" : ""}
 	)
 )
 
 (defwidget metric [label value onchange ?class]
-	(box :class "metric" :space-evenly false
-		(box :class "label font-icon" label)
-		(scale :class "${class}" :min 0 :max 101 :value value :onchange onchange)
-		(box "${value}%  ")
+	(box :class "metric" :space-evenly false :spacing 0
+		(box :class "label" label)
+		(scale :class "${class} label" :min 0 :max 101 :value value :onchange onchange)
+		(box :class "" "${value}%")
 	)
 )
 
 (defwidget disk [name]
-	(box :class "disk" :space-evenly false
-		(scale :class "unset" :min 0 :max 101 :value {round(EWW_DISK[name].used_perc, 0)})
+	(box :class "disk metric" :space-evenly false
+		(scale :min 0 :max 101 :value {round(EWW_DISK[name].used_perc, 0)})
 		{round(EWW_DISK[name].used_perc, 0)}
 		"%"
 	)
@@ -120,6 +134,7 @@
 
 (defvar papirus "/usr/share/icons/Papirus/32x32/apps")
 
+(defpoll connected :interval "60s" "scripts/connected")
 (defpoll disks :interval "1s" "scripts/disks")
 (defpoll volume :interval "1s" "scripts/volume")
 (defpoll workspace :interval "100ms" "scripts/workspaces")
