@@ -1,1 +1,2 @@
+#!/bin/sh
 bspc query -D -d focused --names

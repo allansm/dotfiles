@@ -17,24 +17,28 @@
 	min-width:1px;
 }
 
+.font-icon{
+	font-size:17px;
+}
+
 .metric scale trough {
 	background-color: darker(${color10});
-	border-radius: 50px;
+	border-radius: 16px;
 	min-height: 12px;
 	min-width: 70px;
 	margin-left: 5px;
-	margin-right: 10px;
+	margin-right: 5px;
 	
 }
 
 .metric scale trough highlight{
 	background-color: ${color10};
-	border-radius: 10px;
+	border-radius: 16px;
 }
 
 .disk scale trough {
 	background-color: darker(${color10});
-	border-radius: 50px;
+	border-radius: 16px;
 	min-height: 12px;
 	min-width:70px;
 	margin-left: 6px;
@@ -44,7 +48,7 @@
 
 .disk scale trough highlight{
 	background-color: ${color10};
-	border-radius: 10px;
+	border-radius: 16px;
 }
 
 .muted slider{
@@ -72,7 +76,12 @@
 
 .icon{
 	all: unset;
-	font-size: 18px;
+	font-size: 25px;
+}
+
+.small{
+	all: unset;
+	font-size: 21px;
 }
 
 .middle button{

@@ -1,1 +1,2 @@
+#!/bin/sh
 amixer -D pulse sget Master | grep -c '\[on\]' | awk -F'[][]' '{printf $1}' | tr -d '%' | head -1

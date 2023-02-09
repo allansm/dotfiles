@@ -1,0 +1,31 @@
+#!/bin/sh
+
+material="$HOME/.local/share/fonts/material-design-icons"
+url="https://raw.githubusercontent.com/google/material-design-icons/master/font"
+fonts="MaterialIcons-Regular.ttf MaterialIconsSharp-Regular.otf MaterialIconsOutlined-Regular.otf MaterialIconsTwoTone-Regular.otf MaterialIconsRound-Regular.otf"
+
+mkdir $material
+cd $material
+pwd
+
+for font in $fonts
+do
+	wget "$url/$font"
+done
+
+fontawesome="$HOME/.local/share/fonts/font-awesome"
+
+url="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/webfonts"
+fonts="fa-brands-400.ttf fa-regular-400.ttf"
+
+cd ~
+mkdir $fontawesome
+cd $fontawesome
+pwd
+
+for font in $fonts
+do
+	wget "$url/$font"
+done
+
+fc-cache -v -f
