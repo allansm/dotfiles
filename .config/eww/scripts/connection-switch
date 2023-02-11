@@ -1,8 +1,9 @@
 #!/bin/bash
+
 connected=$(nmcli g | grep -oE "^connected")
 
 if [ $connected ]; then
-	echo "connected"
+	nmcli networking off
 else
-	echo "disconnected"
+	nmcli networking on
 fi

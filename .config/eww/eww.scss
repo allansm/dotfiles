@@ -23,7 +23,7 @@ $radius : 16px;
 .workspaces button{
 	all: unset;
 	background: $background;
-	font-size: 27px;
+	font-size: 23px;
 	padding-right: 1px;
 }
 
@@ -39,19 +39,16 @@ $radius : 16px;
 	padding-left: $left-distance;
 }
 
-.icons button{
-	background: $background;
-}
-
-.icons button:hover{
-	border-bottom: 5px solid $color1;	
-}
-
 .icon{
 	all: unset;
 	font-size: $font-icon-size;
 	padding-left: $icons-distance;
 	padding-right: $icons-distance;
+	background: $background;
+}
+
+.icon:hover{
+	border-bottom: 5px solid $color1;	
 }
 
 .icon-small{
@@ -60,6 +57,14 @@ $radius : 16px;
 
 .temperature{
 	padding-left: $left-distance;
+}
+
+.connection{
+	all: unset;
+}
+
+.connection:hover{
+	color: $color1;
 }
 
 .user{

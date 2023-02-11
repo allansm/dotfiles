@@ -1,2 +1,4 @@
 #!/bin/sh
-df -h | grep dev | grep sd | rev |cut -d ' ' -f1 | rev | sed 's/$/"/' | rev |  sed 's/$/"/' | rev |tr '\n' ',' | rev | cut -c2- | sed 's/$/[/' | rev | sed ''s/$/]/
+disks=$(df -h | grep dev | grep sd | rev |cut -d ' ' -f1 | rev | sed 's/$/"/' | rev |  sed 's/$/"/' | rev |tr '\n' ',' | rev | cut -c2- | sed 's/$/[/' | rev | sed ''s/$/]/)
+
+echo $disks

@@ -28,7 +28,7 @@
  	(box :class "right" :orientation "h" :space-evenly false :halign "end"
 		(metric :class "" :label "" :value {round(EWW_CPU.avg, 0)} :onchange "")
 		(metric :class "" :label "" :value {round(EWW_RAM.used_mem_perc, 0)} :onchange "")
-		(metric :class {muted == 0 ? "muted" : "unset"} :label "" :value volume :onchange "amixer -D pulse sset Master {}%")
+		(metric :class {muted == 0 ? "muted" : "unset"} :label volume-icon :value volume :onchange "amixer -D pulse sset Master {}%")
 		(temperature)
 		(connection)
 		(box :class "user" user)
@@ -104,7 +104,7 @@
 
 (defwidget connection []
 	(box :class "label"
-		{connected == "connected" ? "" : ""}
+		(button :class "connection" :onclick "scripts/connection-switch" {connected == "connected" ? "" : ""})
 	)
 )
 
@@ -134,9 +134,10 @@
 
 (defvar papirus "/usr/share/icons/Papirus/32x32/apps")
 
-(defpoll connected :interval "60s" "scripts/connected")
+(defpoll connected :interval "1s" "scripts/connected")
 (defpoll disks :interval "1s" "scripts/disks")
 (defpoll volume :interval "1s" "scripts/volume")
+(defpoll volume-icon :interval "1s" "scripts/volume-icon")
 (defpoll workspace :interval "100ms" "scripts/workspaces")
 (defpoll user :interval "1200s" "echo $USER")
 (defpoll muted :interval "1s" "scripts/muted")
