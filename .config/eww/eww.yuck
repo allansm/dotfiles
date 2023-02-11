@@ -28,7 +28,7 @@
  	(box :class "right" :orientation "h" :space-evenly false :halign "end"
 		(metric :class "" :label "" :value {round(EWW_CPU.avg, 0)} :onchange "")
 		(metric :class "" :label "" :value {round(EWW_RAM.used_mem_perc, 0)} :onchange "")
-		(metric :class {muted == 0 ? "muted" : "unset"} :label volume-icon :value volume :onchange "amixer -D pulse sset Master {}%")
+		(volume :class {muted == 0 ? "muted" : "unset"})
 		(temperature)
 		(connection)
 		(box :class "user" user)
@@ -51,10 +51,10 @@
 )
 
 (defwidget disks []
-	(box :class "disks" :orientation "h" :space-evenly false :halign "start" :spacing 0
+	(box :class "disks" :space-evenly false
 		(box :class "label" "")
 		(for n in '${disks}'
-			(disk :name '${n}')
+			(disk :value '${n}')
 		)
 	)
 )
@@ -63,12 +63,12 @@
 	(box :class "network" :space-evenly false
 		(box :class "label" "")
 		(box :class "value" :space-evenly false
-			{round(EWW_NET["wlp2s0"]["NET_UP"]/1024, 0)} "Kbps"
+			{round(EWW_NET["wlp2s0"]["NET_UP"]/1024, 1)} "Kb/s"
 		)
 
 		(box :class "font-icon label" "")
 		(box :class "value" :space-evenly false
-			{round(EWW_NET["wlp2s0"]["NET_DOWN"]/1024, 0)} "Kbps"
+			{round(EWW_NET["wlp2s0"]["NET_DOWN"]/1024, 1)} "Kb/s"
 		)
 	)
 )
@@ -93,6 +93,14 @@
 	)
 )
 
+(defwidget volume  [?class]
+	(box :class "metric" :space-evenly false
+		(button :class "volume label" :onclick "amixer -q -D pulse set Master 1+ toggle" volume-icon)
+		(scale :class "${class}" :min 0 :max 101 :value volume :onchange "amixer -D pulse sset Master {}%")
+		(box :class "" "${volume}%")
+	)
+)
+
 (defwidget temperature []
 	(box :space-evenly false
 		(box :class "label" "")
@@ -111,15 +119,15 @@
 (defwidget metric [label value onchange ?class]
 	(box :class "metric" :space-evenly false :spacing 0
 		(box :class "label" label)
-		(scale :class "${class} label" :min 0 :max 101 :value value :onchange onchange)
+		(scale :class "${class}" :min 0 :max 101 :value value :onchange onchange)
 		(box :class "" "${value}%")
 	)
 )
 
-(defwidget disk [name]
+(defwidget disk [value]
 	(box :class "disk metric" :space-evenly false
-		(scale :min 0 :max 101 :value {round(EWW_DISK[name].used_perc, 0)})
-		{round(EWW_DISK[name].used_perc, 0)}
+		(scale :min 0 :max 101 :value value)
+		value
 		"%"
 	)
 )

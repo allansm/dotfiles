@@ -59,6 +59,14 @@ $radius : 16px;
 	padding-left: $left-distance;
 }
 
+.volume{
+	all: unset;
+}
+
+.volume:hover{
+	color: $color1;
+}
+
 .connection{
 	all: unset;
 }
