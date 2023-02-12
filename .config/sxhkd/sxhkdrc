@@ -1,15 +1,15 @@
 #!/bin/sh
 #volume down
 XF86AudioLowerVolume
-	amixer -q sset Master 3- && notify-send Volume "$(amixer sget Master | grep %)"
+	amixer -q sset Master 3%- && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)"
 
 #volume up
 XF86AudioRaiseVolume
-	amixer -q sset Master 3+ && notify-send Volume "$(amixer sget Master | grep %)"
+	amixer -q sset Master 3%+ && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)"
 
 #mute
 XF86AudioMute
-	amixer -q -D pulse set Master 1+ toggle && notify-send Volume muted/unmuted
+	amixer -q -D pulse set Master 1+ toggle && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)"
 
 #terminal
 ctrl + alt + t
