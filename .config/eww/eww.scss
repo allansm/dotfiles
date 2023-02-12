@@ -39,6 +39,10 @@ $radius : 16px;
 	padding-left: $left-distance;
 }
 
+.network .label{
+	padding-right: $right-distance;
+}
+
 .icon{
 	all: unset;
 	font-size: $font-icon-size;
@@ -90,7 +94,7 @@ $radius : 16px;
 
 .metric scale trough{
 	background:$color2;
-	min-width: 70px;
+	min-width: 60px;
 	min-height: 12px;
 	border-radius: $radius;
 }
@@ -110,7 +114,6 @@ $radius : 16px;
 
 .label{
 	font-size: $label-size;
-	padding-right: $right-distance;
 	padding-left: $right-distance;
 }
 

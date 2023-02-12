@@ -4,6 +4,7 @@ material="$HOME/.local/share/fonts/material-design-icons"
 url="https://raw.githubusercontent.com/google/material-design-icons/master/font"
 fonts="MaterialIcons-Regular.ttf MaterialIconsSharp-Regular.otf MaterialIconsOutlined-Regular.otf MaterialIconsTwoTone-Regular.otf MaterialIconsRound-Regular.otf"
 
+rm -rf $material
 mkdir $material
 cd $material
 pwd
@@ -18,7 +19,7 @@ fontawesome="$HOME/.local/share/fonts/font-awesome"
 url="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/webfonts"
 fonts="fa-brands-400.ttf fa-regular-400.ttf"
 
-cd ~
+rm -rf $fontawesome
 mkdir $fontawesome
 cd $fontawesome
 pwd
@@ -27,5 +28,27 @@ for font in $fonts
 do
 	wget "$url/$font"
 done
+
+fontlogos="$HOME/.local/share/fonts/font-logos"
+url="https://github.com/lukas-w/font-logos/releases/download/v1.0.1/font-logos-1.0.1.zip"
+
+mkdir $fontlogos
+cd $fontlogos
+pwd
+
+wget $url
+
+unzip -p font-logos-1.0.1.zip font-logos-1.0.1/assets/font-logos.ttf > font-logos.ttf
+rm -rf font-logos-1.0.1.zip
+
+notoemoji="$HOME/.local/share/fonts/noto-emoji"
+url="https://raw.githubusercontent.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf"
+
+rm -rf $notoemoji
+mkdir $notoemoji
+cd $notoemoji
+pwd
+
+wget $url
 
 fc-cache -v -f

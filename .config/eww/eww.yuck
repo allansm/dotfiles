@@ -30,6 +30,7 @@
 		(metric :class "" :label "" :value {round(EWW_RAM.used_mem_perc, 0)} :onchange "")
 		(volume :class {muted == 0 ? "muted" : "unset"})
 		(temperature)
+		(weather)
 		(connection)
 		(box :class "user" user)
 	)
@@ -110,6 +111,13 @@
 	)
 )
 
+(defwidget weather []
+	(box :space-evenly false
+		(box :class "label value" weather-icon)
+		(box :class "value" weather-temp)
+	)
+)
+
 (defwidget connection []
 	(box :class "label"
 		(button :class "connection" :onclick "scripts/connection-switch" {connected == "connected" ? "" : ""})
@@ -149,6 +157,8 @@
 (defpoll workspace :interval "100ms" "scripts/workspaces")
 (defpoll user :interval "1200s" "echo $USER")
 (defpoll muted :interval "1s" "scripts/muted")
+(defpoll weather-icon :interval "300s" "curl -s --connect-timeout 10 wttr.in?format=%c | grep -v curl | xargs")
+(defpoll weather-temp :interval "300s" "curl -s --connect-timeout 10 wttr.in?format=%t | grep -v curl | xargs")
 
 (defwindow main :monitor 0 :windowtype "dock" :geometry 
 	(geometry :x "0%" :y "5px" :width "99.26793557833089%" :height "33px" :anchor "top center") :reserve
