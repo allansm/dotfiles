@@ -104,17 +104,29 @@
 
 (defwidget temperature []
 	(box :space-evenly false
-		(box :class "label" "")
-		(box :class "value"
-			{EWW_TEMPS["CORETEMP_CORE_0"]} "°C"
+		(eventbox :onhover "eww update show-temperature=true" :onhoverlost "eww update show-temperature=false"
+			(box :space-evenly false
+				(box :class "label" "")
+				(revealer :reveal {show-temperature} :transition "slideright" :duration "1s"
+					(box :class "value"
+						{EWW_TEMPS["CORETEMP_CORE_0"]} "°C"
+					)
+				)
+			)
 		)
 	)
 )
 
 (defwidget weather []
 	(box :space-evenly false
-		(box :class "label value" weather-icon)
-		(box :class "value" weather-temp)
+		(eventbox :onhover "eww update show-weather=true" :onhoverlost "eww update show-weather=false"
+			(box :space-evenly false
+				(box :class "label value" weather-icon)
+				(revealer :reveal {show-weather} :transition "slideright" :duration "1s"
+					(box :class "value" weather-temp)
+				)
+			)
+		)
 	)
 )
 
@@ -149,6 +161,8 @@
 )
 
 (defvar papirus "/usr/share/icons/Papirus/32x32/apps")
+(defvar show-weather false)
+(defvar show-temperature false)
 
 (defpoll connected :interval "1s" "scripts/connected")
 (defpoll disks :interval "1s" "scripts/disks")
@@ -167,7 +181,7 @@
 )
 
 (defwindow fill :monitor 0 :windowtype "dock" :geometry
-	(geometry :x "0%" :y "0%" :width "100%" :height "33px" :anchor "top center") :reserve
+	(geometry :x "0%" :y "0%" :width "100%" :height "32px" :anchor "top center") :reserve
 	(struts :side "top" :distance "4%")
 	(bar)
 )
