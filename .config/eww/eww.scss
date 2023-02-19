@@ -1,5 +1,6 @@
 $background : ${background};
 $foreground : ${foreground};
+$transparent : rgba($background, 0);
 $color1 : ${color10};
 $color2 : darker($color1);
 $color3 : gray;
@@ -12,8 +13,20 @@ $icons-distance : 5px;
 $radius : 16px;
 
 .main, .fill{
-	background:$background;
+	background:$transparent;
 	color: $foreground;
+}
+
+.opaque{
+	background: $background;
+}
+
+.default{
+	background: rgba($background, 0.9); 
+}
+
+.transparent{
+	background: rgba($background, 0.6);
 }
 
 .workspaces{
@@ -22,7 +35,7 @@ $radius : 16px;
 
 .workspaces button{
 	all: unset;
-	background: $background;
+	background: $transparent;
 	font-size: 23px;
 	padding-right: 1px;
 }
@@ -48,7 +61,7 @@ $radius : 16px;
 	font-size: $font-icon-size;
 	padding-left: $icons-distance;
 	padding-right: $icons-distance;
-	background: $background;
+	background: $transparent;
 }
 
 .icon:hover{
