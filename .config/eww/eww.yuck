@@ -123,7 +123,7 @@
 	(box :space-evenly false
 		(eventbox :onhover "eww update show-weather=true" :onhoverlost "eww update show-weather=false"
 			(box :space-evenly false
-				(box :class "label value" weather-icon)
+				(box :class "label" weather-icon)
 				(revealer :reveal {show-weather} :transition "slideright" :duration "1s"
 					(box :class "value" weather-temp)
 				)
@@ -173,8 +173,8 @@
 (defpoll workspace :interval "100ms" "scripts/workspaces")
 (defpoll user :interval "1200s" "echo $USER")
 (defpoll muted :interval "1s" "scripts/muted")
-(defpoll weather-icon :interval "300s" "curl -s --connect-timeout 10 wttr.in?format=%c | grep -v curl | xargs")
-(defpoll weather-temp :interval "300s" "curl -s --connect-timeout 10 wttr.in?format=%t | grep -v curl | xargs")
+(defpoll weather-icon :interval "300s" "curl -s --connect-timeout 10 wttr.in?format=%c | grep -v curl | grep -v Unk | xargs")
+(defpoll weather-temp :interval "300s" "curl -s --connect-timeout 10 wttr.in?format=%t | grep -v curl | grep -v Unk | xargs")
 (defpoll transparency :interval "1s" "cat ~/.transparency")
 
 (defwindow main :monitor 0 :windowtype "toolbar" :wm-ignore false :stacking "bg" :geometry 
