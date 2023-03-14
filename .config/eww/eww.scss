@@ -17,6 +17,24 @@ $radius : 16px;
 	color: $foreground;
 }
 
+.clock{
+	font-size:120px
+}
+
+.clock, .icon-bar, .workspace-bar, .stat-bar, .traffic{
+	background: $transparent;
+	opacity: 0.8;
+	//text-shadow: 1px 1px $background;
+}
+
+.icon-bar .icon{
+	font-size: 31px
+}
+
+.icon-bar .icon-small{
+	font-size: 27px;
+}
+
 .opaque{
 	background: $background;
 }
@@ -108,7 +126,7 @@ $radius : 16px;
 .metric scale trough{
 	background:$color2;
 	min-width: 80px;
-	min-height: 14px;
+	min-height: 10px;
 	border-radius: $radius;
 }
 

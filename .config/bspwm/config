@@ -96,13 +96,25 @@ bs(){
 	echo "dunst -config <(envsubst < ~/.config/dunst/$9) &" >> ~/.config/bspwm/appearance	
 }
 
+desktopstuff(){
+	eww open clock
+	eww open traffic
+	eww open workspace-bar
+	eww open icon-bar
+
+	echo "eww open clock" >> ~/.config/bspwm/appearance
+	echo "eww open traffic" >> ~/.config/bspwm/appearance
+	echo "eww open workspace-bar" >> ~/.config/bspwm/appearance
+	echo "eww open icon-bar" >> ~/.config/bspwm/appearance
+}
+
 bsfill(){
 	bs 0 32 0 0 0 0 0 fill flat
 	
 }
 
 bsfull(){
-	bs 0 0 0 0 0 0 0 none flat
+	bs 0 0 0 0 0 0 0 none flat	
 }
 
 bsdefault(){
@@ -114,15 +126,19 @@ bsquare(){
 }
 
 bsnobar(){
-	bs 15 0 0 0 0 16 0 none rounded
+	bs 15 5 5 5 5 24 0 none rounded
+	
+	desktopstuff
 }
 
 bscenter(){
-	bs 5 50 50 50 50 16 0 none rounded
+	bs 5 50 50 50 50 24 0 none rounded
+	
+	desktopstuff
 }
 
 bscenterf(){
-	bs 5 74 50 50 50 0 0 fill rounded
+	bs 5 74 50 50 50 24 0 fill rounded
 }
 
 bsfloat(){
