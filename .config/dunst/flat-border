@@ -6,7 +6,7 @@
 	
 	offset = 12x12
 	
-	transparency = 0
+	#transparency = 10
 	#corner_radius = 16
 	
 	padding = 20
@@ -14,7 +14,7 @@
 	
 	separator_height = 0
 	
-	frame_width = 0
+	frame_width = 2
 	frame_color = "${color10}"
 	
 	gap_size = 5

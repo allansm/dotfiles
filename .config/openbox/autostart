@@ -1,0 +1,3 @@
+feh --bg-fill ~/.wallpaper &
+wal -Rn &
+dunst -config <(envsubst < ~/.config/dunst/flat) &

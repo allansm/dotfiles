@@ -6,7 +6,7 @@
 	
 	offset = 12x12
 	
-	transparency = 10
+	transparency = 0
 	corner_radius = 16
 	
 	padding = 20
