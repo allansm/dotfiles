@@ -1,2 +1,8 @@
 #!/bin/sh
-amixer -D pulse sget Master | grep -c '\[on\]' | awk -F'[][]' '{printf $1}' | tr -d '%' | head -1
+muted=$(amixer -D pulse sget Master | grep -c '\[on\]' | awk -F'[][]' '{printf $1}' | tr -d '%' | head -1)
+
+if [ $muted == 0 ]; then
+	eww update muted=true
+else
+	eww update muted=false
+fi

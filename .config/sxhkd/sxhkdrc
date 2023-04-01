@@ -1,15 +1,15 @@
 #!/bin/sh
 #volume down
 XF86AudioLowerVolume
-	amixer -q sset Master 3%- && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)"
+	amixer -q sset Master 3%- && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)" && ~/.config/eww/scripts/volume && ~/.config/eww/scripts/volume-icon
 
 #volume up
 XF86AudioRaiseVolume
-	amixer -q sset Master 3%+ && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)"
+	amixer -q sset Master 3%+ && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)" && ~/.config/eww/scripts/volume && ~/.config/eww/scripts/volume-icon
 
 #mute
 XF86AudioMute
-	amixer -q -D pulse set Master 1+ toggle && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)"
+	amixer -q -D pulse set Master 1+ toggle && notify-send Volume "$(amixer sget Master | grep Left | grep % | cut -c15-)" && ~/.config/eww/scripts/volume && ~/.config/eww/scripts/volume-icon && ~/.config/eww/scripts/muted
 
 #terminal
 ctrl + alt + t
@@ -61,7 +61,7 @@ alt + {_,shift + }Tab
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+	bspc {desktop -f,node -d} '^{1-9,10}' && ~/.config/eww/scripts/workspace
 
 # preselect direction
 super + {Left,Down,Up,Right}

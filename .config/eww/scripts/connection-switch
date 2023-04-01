@@ -4,6 +4,10 @@ connected=$(nmcli g | grep -oE "^connected")
 
 if [ $connected ]; then
 	nmcli networking off
+
+	eww update connected=false
 else
 	nmcli networking on
+
+	eww update connected=true
 fi

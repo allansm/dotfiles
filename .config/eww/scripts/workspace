@@ -1,0 +1,4 @@
+#!/bin/sh
+workspace=$(bspc query -D -d focused --names)
+
+eww update workspace=$workspace

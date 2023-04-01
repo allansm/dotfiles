@@ -1,16 +1,16 @@
 #!/bin/bash
-
-volume=$(amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -1)
+#
 muted=$(amixer -D pulse sget Master | grep -c '\[on\]' | awk -F'[][]' '{printf $1}' | tr -d '%' | head -1)
 
 if [ $muted -eq 0 ]; then
-	echo ""
+	eww update volume-icon=
 else
+	volume=$(amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -1)
 	if [ $volume -gt 39 ]; then
-		echo ""
+		eww update volume-icon=
 	elif [ $volume -eq 0 ]; then
-		echo ""
+		eww update volume-icon=
 	else
-		echo ""
+		eww update volume-icon=
 	fi
 fi

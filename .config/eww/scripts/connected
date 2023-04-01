@@ -2,7 +2,7 @@
 connected=$(nmcli g | grep -oE "^connected")
 
 if [ $connected ]; then
-	echo "connected"
+	eww update connected=true
 else
-	echo "disconnected"
+	eww update connected=false
 fi
