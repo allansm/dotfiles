@@ -4,7 +4,7 @@ $transparent : rgba($background, 0);
 $color1 : ${color10};
 $color2 : darker($color1);
 $color3 : gray;
-$left-distance : 20px;
+$left-distance : 15px;
 $right-distance : 5px;
 $font-icon-size : 23px;
 $font-icon-size-small : 19px;
@@ -64,6 +64,13 @@ $radius : 16px;
 
 .disks{
 	padding-left: $left-distance;
+}
+
+.disks .metric scale trough{
+	background:$color2;
+	min-width: 50px;
+	min-height: 10px;
+	border-radius: $radius;
 }
 
 .network{
@@ -146,6 +153,13 @@ $radius : 16px;
 .label{
 	font-size: $label-size;
 	padding-left: $right-distance;
+}
+
+.label-small, .workspaces .label-small{
+	all: unset;
+	font-size: 15px;
+	padding-right: 3px;
+	padding-left: 2px;
 }
 
 .value{

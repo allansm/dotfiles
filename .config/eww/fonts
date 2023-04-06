@@ -16,18 +16,27 @@ done
 
 fontawesome="$HOME/.local/share/fonts/font-awesome"
 
-url="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/webfonts"
-fonts="fa-brands-400.ttf fa-regular-400.ttf"
+#url="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/webfonts"
+fonts="fa-brands-400.ttf fa-regular-400.ttf fa-solid-900.ttf fa-v4compatibility.ttf"
 
 rm -rf $fontawesome
 mkdir $fontawesome
 cd $fontawesome
 pwd
 
+wget https://github.com/FortAwesome/Font-Awesome/releases/download/6.4.0/fontawesome-free-6.4.0-web.zip
+
 for font in $fonts
 do
-	wget "$url/$font"
+	unzip -p fontawesome-free-6.4.0-web.zip fontawesome-free-6.4.0-web/webfonts/$font > $font
 done
+
+rm -rf fontawesome-free-6.4.0-web.zip
+
+#for font in $fonts
+#do
+#	wget "$url/$font"
+#done
 
 fontlogos="$HOME/.local/share/fonts/font-logos"
 url="https://github.com/lukas-w/font-logos/releases/download/v1.0.1/font-logos-1.0.1.zip"

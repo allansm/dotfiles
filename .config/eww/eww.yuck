@@ -11,10 +11,10 @@
 (defwidget left []
 	(box :class "left" :orientation "h" :space-evenly false :halign "start"
 		(workspaces)
-		(revealer :reveal {EWW_NET["wlp2s0"]["NET_UP"] == 0 && EWW_NET["wlp2s0"]["NET_DOWN"] == 0} :transition "slideright" :duration "1s"
-			(disks)
+		(revealer :reveal {EWW_NET[interface]["NET_UP"] == 0 && EWW_NET[interface]["NET_DOWN"] == 0} :transition "slideright" :duration "1s"
+			(disks :class "label-small")
 		)
-		(revealer :reveal {EWW_NET["wlp2s0"]["NET_UP"] > 0 || EWW_NET["wlp2s0"]["NET_DOWN"] > 0} :transition "slideright" :duration "1s"
+		(revealer :reveal {EWW_NET[interface]["NET_UP"] > 0 || EWW_NET[interface]["NET_DOWN"] > 0} :transition "slideright" :duration "1s"
 			(network)
 		)
 	)
@@ -28,7 +28,7 @@
 
 (defwidget right []
  	(box :class "right" :orientation "h" :space-evenly false :halign "end"
-		(metric :class "" :label "" :value {round(EWW_CPU.avg, 0)} :onchange "")
+		(metric :class "" :label-class "label-small" :label "" :value {round(EWW_CPU.avg, 0)} :onchange "")
 		(metric :class "" :label "" :value {round(EWW_RAM.used_mem_perc, 0)} :onchange "")
 		(volume :class {muted ? "muted" : "unset"})
 		(temperature)
@@ -39,23 +39,16 @@
 )
 
 (defwidget workspaces []
-	(box :class "workspaces ${set-workspace}" :orientation "h" :space-evenly false :halign "start" :spacing 0	
-		(button :onclick "bspc desktop -f ^1 && scripts/workspace &" {workspace == "I" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^2 && scripts/workspace &" {workspace == "II" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^3 && scripts/workspace &" {workspace == "III" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^4 && scripts/workspace &" {workspace == "IV" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^5 && scripts/workspace &" {workspace == "V" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^6 && scripts/workspace &" {workspace == "VI" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^7 && scripts/workspace &" {workspace == "VII" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^8 && scripts/workspace &" {workspace == "VIII" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^9 && scripts/workspace &" {workspace == "IX" ? "●" : "○"})
-		(button :onclick "bspc desktop -f ^10 && scripts/workspace &" {workspace == "X" ? "●" : "○"})
+	(box :class "workspaces ${set-workspace}" :orientation "h" :space-evenly false :halign "start" :spacing 0
+		(for w in workspaces
+			(button :class {workspace == w &&  workspace-active == "" ? "label-small" : "none"} :onclick "bspc desktop -f ^${w} && scripts/workspace &" {workspace == w ? workspace-active : workspace-inactive})
+		)
 	)
 )
 
-(defwidget disks []
+(defwidget disks [?class]
 	(box :class "disks" :space-evenly false
-		(box :class "label" "")
+		(box :class "label ${class}" "")
 		(for n in '${disks}'
 			(disk :value '${n}')
 		)
@@ -66,12 +59,12 @@
 	(box :class "network" :space-evenly false
 		(box :class "label" "")
 		(box :class "value" :space-evenly false
-			{round(EWW_NET["wlp2s0"]["NET_UP"]/1024, 1)} "Kb/s"
+			{round(EWW_NET[interface]["NET_UP"]/1024, 1)} "Kb/s"
 		)
 
 		(box :class "font-icon label" "")
 		(box :class "value" :space-evenly false
-			{round(EWW_NET["wlp2s0"]["NET_DOWN"]/1024, 1)} "Kb/s"
+			{round(EWW_NET[interface]["NET_DOWN"]/1024, 1)} "Kb/s"
 		)
 	)
 )
@@ -138,9 +131,9 @@
 	)
 )
 
-(defwidget metric [label value onchange ?class]
+(defwidget metric [label value onchange ?class ?label-class]
 	(box :class "metric" :space-evenly false :spacing 0
-		(box :class "label" label)
+		(box :class "label ${label-class}" label)
 		(scale :class "${class}" :min 0 :max 101 :value value :onchange onchange)
 		(box :class "" "${value}%")
 	)
@@ -170,6 +163,9 @@
 (defvar volume 0)
 (defvar volume-icon " ")
 (defvar workspace " ")
+(defvar workspaces '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]')
+(defvar workspace-active "")
+(defvar workspace-inactive "○")
 
 (defpoll check-connection :interval "60s" "scripts/connected")
 (defpoll disks :interval "62s" "scripts/disks")
@@ -182,6 +178,7 @@
 (defpoll weather-temp :interval "1200s" "curl -s --connect-timeout 10 wttr.in?format=%t | grep -v curl | grep -v Unk | xargs")
 (defpoll transparency :interval "64s" "cat ~/.transparency")
 (defpoll time :interval "66s" 'date +"%T" | rev |cut -c4- | rev')
+(defpoll interface :interval "1200s" "scripts/interface")
 
 (defwindow main :monitor 0 :windowtype "normal" :wm-ignore false :geometry 
 	(geometry :x "5px" :y "5px" :width "99.26793557833089%" :height "33px")

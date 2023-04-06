@@ -1,0 +1,2 @@
+#!/bin/bash
+nmcli | grep connected | grep -v exter | cut -d ' ' -f1 | cut -d ':' -f1
