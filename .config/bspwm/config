@@ -3,6 +3,7 @@ source ~/.cache/wal/colors.sh
 gap(){
 	bspc config window_gap $@
 	#wal -Rn
+	eww update gap=$@
 }
 
 border(){
@@ -24,10 +25,15 @@ bsbottom(){
 }
 
 margin(){
-	bspc config top_padding $@
-	bspc config right_padding $@
-	bspc config left_padding $@
-	bspc config bottom_padding $@
+	bspc config top_padding $1
+	bspc config right_padding $2
+	bspc config left_padding $3
+	bspc config bottom_padding $4
+}
+
+radius(){
+	bspc config border_radius $1
+	eww update border-radius=$1
 }
 
 bg(){
@@ -35,19 +41,40 @@ bg(){
 	feh --bg-fill ~/.wallpaper
 }
 
+appearance(){
+	if [ "$1" == "remove" ];then
+		del ~/.config/bspwm/appearance
+	elif [ "$1" == "load" ];then
+		killall picom
+		killall dunst
+		
+		eww close-all		
+
+		source ~/.config/bspwm/appearance
+	else
+		echo "$@"
+		echo "$@" >> ~/.config/bspwm/appearance
+	fi
+}
+
 theme(){
 	wal -i $@
-	#cp $@ ~/.wallpaper
+
 	feh --bg-fill ~/.wallpaper
+
 	source ~/.cache/wal/colors.sh
+
 	export color10=$color10
 	export foreground=$foreground
 	export background=$background
+
 	bspc config normal_border_color $background
 	bspc config focused_border_color $color10
 	bspc config presel_feedback_color $color10
-	#killall dunst 
-	#dunst -config <(envsubst < ~/.config/dunst/dunstrc) 1>/dev/null 2>&1 &
+	
+	killall eww
+
+	appearance load
 }
 
 bs(){
@@ -56,46 +83,30 @@ bs(){
 	export background=$background
 	export foreground=$foreground
 	export color10=$color10
-	
-	bspc config window_gap $1
-	bspc config top_padding $2
-	bspc config left_padding $3
-	bspc config right_padding $4
-	bspc config bottom_padding $5
-	bspc config border_radius $6
-	bspc config border_width $7
 
-	bspc config normal_border_color $background
-	bspc config focused_border_color $color10
-	bspc config presel_feedback_color $color10
+	appearance remove
 
-	killall picom
-	picom --corner-radius $6 1>/dev/null 2>&1 &
+	appearance bspc config window_gap $1
+	appearance bspc config top_padding $2
+	appearance bspc config left_padding $3
+	appearance bspc config right_padding $4
+	appearance bspc config bottom_padding $5
+	appearance bspc config border_radius $6
+	appearance bspc config border_width $7
 	
-	killall dunst
-	dunst -config <(envsubst < ~/.config/dunst/$9) 1>/dev/null 2>&1 &
+	appearance bspc config normal_border_color \\$background
+	appearance bspc config focused_border_color \\$color10
+	appearance bspc config presel_feedback_color \\$color10
 	
-	eww close-all
-	killall eww
-	eww daemon
-	eww open $8
+	appearance picom --corner-radius $6 1>/dev/null 2>&1 \&
+	appearance source ~/.cache/wal/colors.sh
+	appearance dunst -config "<(envsubst < ~/.config/dunst/$9)" \&
+	
+	appearance eww update gap=$1
+	appearance eww update border-radius=$6
+	appearance eww open $8
 
-	echo "bspc config window_gap $1" > ~/.config/bspwm/appearance
-	echo "bspc config top_padding $2" >> ~/.config/bspwm/appearance
-	echo "bspc config left_padding $3" >> ~/.config/bspwm/appearance
-	echo "bspc config right_padding $4" >>  ~/.config/bspwm/appearance
-	echo "bspc config bottom_padding $5" >> ~/.config/bspwm/appearance
-	echo "bspc config border_radius $6" >> ~/.config/bspwm/appearance
-	echo "bspc config border_width $7" >>  ~/.config/bspwm/appearance
-	
-	echo "bspc config normal_border_color \\$background" >> ~/.config/bspwm/appearance
-	echo "bspc config focused_border_color \\$color10" >> ~/.config/bspwm/appearance
-	echo "bspc config presel_feedback_color \\$color10" >> ~/.config/bspwm/appearance
-
-	echo "eww open $8" >> ~/.config/bspwm/appearance
-	echo "picom --corner-radius $6 1>/dev/null 2>&1 &" >> ~/.config/bspwm/appearance
-	echo "source ~/.cache/wal/colors.sh" >> ~/.config/bspwm/appearance
-	echo "dunst -config <(envsubst < ~/.config/dunst/$9) &" >> ~/.config/bspwm/appearance	
+	appearance load
 }
 
 desktopstuff(){
@@ -111,16 +122,16 @@ desktopstuff(){
 }
 
 bsfill(){
-	bs 0 32 0 0 0 0 0 fill flat
+	bs 0 32 0 0 0 0 0 fill flat-border
 	
 }
 
 bsfull(){
-	bs 0 0 0 0 0 0 0 none flat	
+	bs 0 0 0 0 0 0 0 none flat-border
 }
 
 bsdefault(){
-	bs 5 37 0 0 0 16 0 main rounded
+	bs 5 37 0 0 0 20 0 main rounded
 }
 
 bsquare(){
@@ -128,27 +139,29 @@ bsquare(){
 }
 
 bsnobar(){
-	bs 15 5 5 5 5 24 0 none rounded
+	bs 15 5 5 5 5 20 0 none rounded
 	
 	desktopstuff
 }
 
 bsnoeww(){
-	bs 15 5 5 5 5 24 0 none rounded
+	bs 15 5 5 5 5 20 0 none rounded
+	
+	killall eww
 }
 
 bscenter(){
-	bs 5 50 50 50 50 24 0 none rounded
+	bs 5 50 50 50 50 20 0 none rounded
 	
 	desktopstuff
 }
 
 bscenterf(){
-	bs 5 74 50 50 50 24 0 fill rounded
+	bs 5 74 50 50 50 20 0 fill rounded
 }
 
 bsround(){
-	bs 5 32 0 0 0 24 0 fill rounded
+	bs 5 32 0 0 0 20 0 fill rounded
 }
 
 bsflat(){

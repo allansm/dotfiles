@@ -1,10 +1,16 @@
-(defwidget bar []
-	(box :class {transparency == "" ? "opaque" : transparency}
+(defwidget bar [?class ?background ?radius]
+	(box :class "${background} ${class}" :style "border-radius:${radius}px;"
 		(centerbox :orientation "h"
 			(left)
 			(middle)
 			(right)
 		)
+	)
+)
+
+(defwidget gap-bar [?gap]
+	(box :style "padding: 5px ${gap}px 5px ${gap}px"
+		(bar :background {transparency == "" ? "opaque" : transparency} :radius border-radius)
 	)
 )
 
@@ -166,6 +172,8 @@
 (defvar workspaces '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]')
 (defvar workspace-active "")
 (defvar workspace-inactive "○")
+(defvar border-radius 24)
+(defvar gap 5)
 
 (defpoll check-connection :interval "60s" "scripts/connected")
 (defpoll disks :interval "62s" "scripts/disks")
@@ -180,14 +188,14 @@
 (defpoll time :interval "66s" 'date +"%T" | rev |cut -c4- | rev')
 (defpoll interface :interval "1200s" "scripts/interface")
 
-(defwindow main :monitor 0 :windowtype "normal" :wm-ignore false :geometry 
-	(geometry :x "5px" :y "5px" :width "99.26793557833089%" :height "33px")
-  	(bar)
+(defwindow main :monitor 0 :windowtype "desktop" :wm-ignore false :geometry
+	(geometry :x "0%" :y "0%" :width "100%" :height "42px") 
+	(gap-bar :gap gap)
 )
 
 (defwindow fill :monitor 0 :windowtype "desktop" :wm-ignore false :geometry
 	(geometry :x "0%" :y "0%" :width "100%" :height "32px") 
-	(bar)
+	(bar :background {transparency == "" ? "opaque" : transparency})
 )
 
 (defwindow clock :monitor 0 :windowtype "desktop" :wm-ignore false :geometry 
