@@ -1,0 +1,9 @@
+#!/bin/bash
+
+show=$(eww state | grep show-user | grep false)
+
+if [ "$show" ]; then
+	eww update show-user=true
+else
+	eww update show-user=false
+fi

@@ -44,7 +44,8 @@ xset s off -dpms &
 feh --bg-fill ~/.wallpaper &
 
 wal -Rn &
-redshift -l -14.23:-51.92 -b 1.0:0.7 &
+redshift &
+xbacklight -set 50
 xsetroot -cursor_name left_ptr &
 
 source ~/.init

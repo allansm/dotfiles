@@ -40,7 +40,14 @@
 		(temperature)
 		(weather)
 		(connection)
-		(box :class "user" user)
+
+		(revealer :reveal {show-user} :transition "slideleft" :duration "1s"
+			(box :class "user ${set-show-user}" user)
+		)
+
+		(revealer :reveal {!show-user} :transition "slideleft" :duration "1s"
+			(box :class "user" time)
+		)
 	)
 )
 
@@ -77,8 +84,9 @@
 
 (defwidget text-icons []
 	(box :class "icons" :space-evenly false
-		(button :class "icon icon-small" :onclick "flatpak run org.chromium.Chromium &" "")
-		(button :class "icon icon-small" :onclick "flatpak run io.gitlab.librewolf-community &" "")
+		(button :class "icon icon-small" :onclick "flatpak run com.github.Eloston.UngoogledChromium --incognito &" "")
+		;(button :class "icon icon-small" :onclick "flatpak run io.gitlab.librewolf-community &" "")
+		(button :class "icon icon-small" :onclick "flatpak run com.github.micahflee.torbrowser-launcher &" "")
 		(button :class "icon" :onclick "urxvt -name float &" "")
 		(button :class "icon" :onclick "thunar ~ &" "")
 		(button :class "icon" :onclick "thunar trash:// &" "")
@@ -87,8 +95,8 @@
 
 (defwidget icons []
 	(box :space-evenly false
-		(icon :name "google-chrome" :onclick "flatpak run org.chromium.Chromium &")
-		(icon :name "firefox" :onclick "flatpak run io.gitlab.librewolf-community &")
+		(icon :name "google-chrome" :onclick "flatpak run com.github.Eloston.UngoogledChromium --incognito &")
+		;(icon :name "firefox" :onclick "flatpak run io.gitlab.librewolf-community &")
 		(icon :name "org.xfce.terminalemulator" :onclick "urxvt -name float &")
 		(icon :name "org.xfce.panel.directorymenu" :onclick "thunar &")
 		(icon :name "trashindicator" :onclick "thunar trash:// &")
@@ -164,6 +172,7 @@
 (defvar papirus "/usr/share/icons/Papirus/32x32/apps")
 (defvar show-weather false)
 (defvar show-temperature false)
+(defvar show-user false)
 (defvar connected false)
 (defvar muted true)
 (defvar volume 0)
@@ -180,6 +189,7 @@
 (defpoll set-volume :interval "120s" "scripts/volume")
 (defpoll set-volume-icon :interval "122s" "scripts/volume-icon")
 (defpoll set-workspace :interval "124s" "scripts/workspace")
+(defpoll set-show-user :interval "68s" "scripts/show-user")
 (defpoll user :interval "1200s" "echo $USER")
 (defpoll ismuted :interval "126s" "scripts/muted")
 (defpoll weather-icon :interval "1200s" "curl -s --connect-timeout 10 wttr.in?format=%c | grep -v curl | grep -v Unk | xargs")
